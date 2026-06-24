@@ -9,5 +9,8 @@ An operating system thats built for optimization, minimalism.
 - So mini that can't even use 1MB of RAM
 - Works on registers, command execution happens very fast
 
+# Kernel added?
+No, never will be. Maybe if I want, otherwise no.
+
 # Why did I built this?
 For fun, learning purposes.

@@ -152,7 +152,7 @@ help db "help", 0
 cls db "clear", 0
 reboot db "reboot", 0
 east db "easter egg", 0
-v db "ver", 0
+v db "kbinfo", 0
 
 buffer times 64 db 0
 

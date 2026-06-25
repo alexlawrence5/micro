@@ -2,10 +2,12 @@ ASM = nasm
 EM = qemu-system-x86_64
 
 all:
-	$(ASM) -f bin main.s -o output.bin
+	$(ASM) -f bin boot.s -o boot.bin
+	$(ASM) -f bin userland.s -o usr.bin
+	cat boot.bin usr.bin > vdmicro.img
 
 emulate:
-	$(EM) -fda boot.bin
+	$(EM) -fda vdmicro.bin
 
 prop:
 	rm -rf *.o *.bin *.elf

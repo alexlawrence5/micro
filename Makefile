@@ -5,7 +5,7 @@ all:
   $(ASM) -f bin main.s -o output.bin
 
 emulate:
-  $(ASM) -fda boot.bin
+  $(EM) -fda boot.bin
 
 prop:
   rm -rf *.o *.bin *.elf

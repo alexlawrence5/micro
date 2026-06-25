@@ -43,9 +43,13 @@ input:
     jmp .read
 
 .done:
+        mov ah, 0x0E
+        mov al, 0x0D
+        int 0x10
+        mov al, 0x0A
+        int 0x10
     mov byte [di], 0
     ret
-
 
 proc:
     mov si, buffer
@@ -69,6 +73,11 @@ proc:
     call strcmp
     jc .easteregg
 
+    mov si, buffer
+    mov di, v
+    call strcmp
+    jc .vr
+
     mov si, unknown
     call print
     ret
@@ -89,6 +98,11 @@ proc:
 
 .easteregg:
         mov si, eastermg
+        call print
+        ret
+
+.vr:
+        mov si, ver
         call print
         ret
 
@@ -132,11 +146,13 @@ prompt db "$ ", 0
 unknown db "unknown cmd", 0x0D, 0x0A, 0
 help_msg db "help, cls, reboot", 0x0D, 0x0A, 0
 eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
+ver db "MicroOS 1.0 - Done with pain and love", 0x0D, 0x0A, 0
 
 help db "help", 0
-cls db "cls", 0
+cls db "clear", 0
 reboot db "reboot", 0
 east db "easter egg", 0
+v db "ver", 0
 
 buffer times 64 db 0
 

@@ -2,10 +2,10 @@ ASM = nasm
 EM = qemu-system-x86_64
 
 all:
-  $(ASM) -f bin main.s -o output.bin
+	$(ASM) -f bin main.s -o output.bin
 
 emulate:
-  $(EM) -fda boot.bin
+	$(EM) -fda boot.bin
 
 prop:
-  rm -rf *.o *.bin *.elf
+	rm -rf *.o *.bin *.elf

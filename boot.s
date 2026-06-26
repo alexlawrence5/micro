@@ -9,6 +9,7 @@ start:
         mov ss, ax
         mov sp, 0x7C00
         sti
+        call clear
         mov si, msg
         call print
         mov si, smsg
@@ -38,6 +39,11 @@ print:
 
 done:
     ret
+
+clear:
+        mov ax, 0x0003
+        int 0x10
+        ret
 
 msg db "MicroBoot (C) developed by Alex Lawrence.", 0x0D,0x0A,0
 smsg db "!!: Loading userland...",0

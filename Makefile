@@ -7,7 +7,7 @@ all:
 	cat boot.bin usr.bin > vdmicro.img
 
 emulate:
-	$(EM) -fda vdmicro.bin
+	$(EM) -fda vdmicro.img
 
 prop:
 	rm -rf *.o *.bin *.elf

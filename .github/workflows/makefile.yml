@@ -15,4 +15,6 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Build
-      run: make
+      run:
+        sudo apt install nasm
+        make

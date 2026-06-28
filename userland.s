@@ -36,8 +36,8 @@ input:
         int 0x10
         mov al, 0x0A
         int 0x10
-    mov byte [di], 0
-    ret
+        mov byte [di], 0
+        ret
 
 proc:
     mov si, buffer
@@ -66,6 +66,21 @@ proc:
     call strcmp
     jc .vr
 
+    mov si, buffer
+    mov di, timer
+    call strcmp
+    jc .timer
+
+    mov si, buffer
+    mov di, list
+    call strcmp
+    jc .showfil
+
+    mov si, buffer
+    mov di, un
+    call strcmp
+    jc .uname
+
     mov si, unknown
     call print
     ret
@@ -74,6 +89,16 @@ proc:
     mov si, help_msg
     call print
     ret
+
+.showfil:
+        mov si, tfiln
+        call print
+        ret
+
+.uname:
+        mov si, unameo
+        call print
+        ret
 
 .cls:
     mov ax, 0x0003
@@ -91,6 +116,22 @@ proc:
 
 .vr:
         mov si, ver
+        call print
+        ret
+
+.timer:
+        mov si, tmsg
+        call print
+        mov ah, 0x00
+        int 0x1A
+        mov bx, dx
+
+.wait:
+        mov ah, 0x00
+        int 0x1A
+        cmp dx, bx
+        je .wait
+        mov si, tdone
         call print
         ret
 
@@ -132,14 +173,21 @@ print:
 msg db "MicroOS - Ultimate mini OS", 0x0D, 0x0A, 0
 prompt db "$ ", 0
 unknown db "unknown cmd", 0x0D, 0x0A, 0
-help_msg db "help, cls, reboot", 0x0D, 0x0A, 0
+help_msg db "help, cls, reboot, count, ls, cat", 0x0D, 0x0A, 0
 eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
-ver db "MicroOS 1.0 - Done with pain and love", 0x0D, 0x0A, 0
+tmsg db "counter started.", 0x0D, 0x0A, 0
+tdone db "1 tick passed (≈1 sec)", 0x0D, 0x0A, 0
+ver db "MicroOS 1.2 - Done with pain and love", 0x0D, 0x0A, 0
+unameo db "MicroOS 1.2 x86 (Sweet Sugar), with MicroFS.", 0x0D, 0x0A, 0
+tfiln db "test.txt", 0x0D, 0x0A, 0
 
 help db "help", 0
 cls db "clear", 0
 reboot db "reboot", 0
 east db "easter egg", 0
 v db "kbinfo", 0
+timer db "count", 0
+list db "ls", 0
+un db "uname", 0
 
 buffer times 64 db 0

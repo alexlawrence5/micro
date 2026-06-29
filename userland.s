@@ -1,6 +1,17 @@
 BITS 16
 ORG 0x8000
 
+mov si, ascii1
+call print
+mov si, ascii2
+call print
+mov si, ascii3
+call print
+mov si, ascii4
+call print
+mov si, empt
+call print
+
 loop:
     mov si, prompt
     call print
@@ -177,9 +188,15 @@ help_msg db "help, cls, reboot, count, ls, cat", 0x0D, 0x0A, 0
 eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
 tmsg db "counter started.", 0x0D, 0x0A, 0
 tdone db "1 tick passed (≈1 sec)", 0x0D, 0x0A, 0
-ver db "MicroOS 1.2 - Done with pain and love", 0x0D, 0x0A, 0
-unameo db "MicroOS 1.2 x86 (Sweet Sugar), with MicroFS.", 0x0D, 0x0A, 0
+ver db "MicroOS 1.3 - Done with pain and love", 0x0D, 0x0A, 0
+unameo db "MicroOS 1.3 x86 (Little Worm), with MicroFS.", 0x0D, 0x0A, 0
 tfiln db "test.txt", 0x0D, 0x0A, 0
+empt db "", 0x0D, 0x0A, 0
+
+ascii1 db "       _             ", 0x0D, 0x0A, 0
+ascii2 db " _____|_|___ ___ ___ ", 0x0D, 0x0A, 0
+ascii3 db "|     | |  _|  _| . |", 0x0D, 0x0A, 0
+ascii4 db "|_|_|_|_|___|_| |___|", 0x0D, 0x0A, 0
 
 help db "help", 0
 cls db "clear", 0

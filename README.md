@@ -12,6 +12,7 @@ An operating system thats built for optimization, minimalism.
 # Requirements
 - At-least 16-bit CPU
 - x86 architecture
+- 0.1MB of RAM (Maybe way less?)
 - MBR, Legacy BIOS (UEFI DOES NOT WORK!)
 - An writer software to write binary to your disc
 - (Optional) You could also run this by writing ```make emulator```

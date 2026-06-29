@@ -15,7 +15,7 @@ An operating system thats built for optimization, minimalism.
 - 0.1MB of RAM (Maybe way less?)
 - MBR, Legacy BIOS (UEFI DOES NOT WORK!)
 - An writer software to write binary to your disc
-- (Optional) You could also run this by writing ```make emulator```
+- (Optional) You could also run this by writing ```make emulate```
 
 # Kernel added?
 No, never will be. Maybe if I want, otherwise no.

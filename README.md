@@ -9,7 +9,7 @@ An operating system thats built for optimization, minimalism.
 - So mini that can't even use 1MB of RAM
 - Works on registers, command execution happens very fast
 
-# Requirements
+# Requirements to run
 - At-least 16-bit CPU
 - x86 architecture
 - 0.1MB of RAM (Maybe way less?)

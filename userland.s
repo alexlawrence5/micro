@@ -92,6 +92,11 @@ proc:
     call strcmp
     jc .uname
 
+    mov si, buffer
+    mov di, hltsys
+    call strcmp
+    jc .halt
+
     mov si, unknown
     call print
     ret
@@ -116,9 +121,21 @@ proc:
     int 0x10
     ret
 
+;  micro power controller (mpc) commands
+
 .reboot:
     int 0x19
     ret
+
+.halt:
+        mov si, panhlt
+        call print
+        cli
+        hlt
+        sti
+        ret
+
+; end of mpc
 
 .easteregg:
         mov si, eastermg
@@ -189,8 +206,9 @@ eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
 tmsg db "counter started.", 0x0D, 0x0A, 0
 tdone db "1 tick passed (≈1 sec)", 0x0D, 0x0A, 0
 ver db "MicroOS 1.3 - Done with pain and love", 0x0D, 0x0A, 0
-unameo db "MicroOS 1.3 x86 (Little Worm), with MicroFS.", 0x0D, 0x0A, 0
+unameo db "MicroOS 1.3 x86 (Little Worm), with MicroFS and MicroShell.", 0x0D, 0x0A, 0
 tfiln db "test.txt", 0x0D, 0x0A, 0
+panhlt db "PANIC: User requested to halt the CPU.", 0x0D, 0x0A, 0
 empt db "", 0x0D, 0x0A, 0
 
 ascii1 db "       _             ", 0x0D, 0x0A, 0
@@ -206,5 +224,6 @@ v db "kbinfo", 0
 timer db "count", 0
 list db "ls", 0
 un db "uname", 0
+hltsys db "hltsys", 0
 
 buffer times 64 db 0

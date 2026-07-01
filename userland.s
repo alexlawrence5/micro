@@ -222,7 +222,7 @@ print:
 msg db "MicroOS - Ultimate mini OS", 0x0D, 0x0A, 0
 prompt db "$ ", 0
 unknown db "unknown cmd", 0x0D, 0x0A, 0
-help_msg db "help, cls, reboot, hltsys, count, ls, cat", 0x0D, 0x0A, 0
+help_msg db "help, cls, reboot, hltsys, count, ls, cat, faq", 0x0D, 0x0A, 0
 eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
 tmsg db "counter started.", 0x0D, 0x0A, 0
 tdone db "1 tick passed (≈1 sec)", 0x0D, 0x0A, 0

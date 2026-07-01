@@ -12,6 +12,7 @@ call print
 mov si, empt
 call print
 
+
 loop:
     mov si, prompt
     call print
@@ -83,19 +84,29 @@ proc:
     jc .timer
 
     mov si, buffer
-    mov di, list
-    call strcmp
-    jc .showfil
-
-    mov si, buffer
     mov di, un
     call strcmp
     jc .uname
 
     mov si, buffer
+    mov di, ls
+    call strcmp
+    jc .list
+
+    mov si, buffer
+    mov di, cat
+    call strcmp
+    jc .show
+
+    mov si, buffer
     mov di, hltsys
     call strcmp
     jc .halt
+
+    mov si, buffer
+    mov di, fc
+    call strcmp
+    jc .fq
 
     mov si, unknown
     call print
@@ -105,11 +116,6 @@ proc:
     mov si, help_msg
     call print
     ret
-
-.showfil:
-        mov si, tfiln
-        call print
-        ret
 
 .uname:
         mov si, unameo
@@ -141,6 +147,21 @@ proc:
         mov si, eastermg
         call print
         ret
+
+.fq:
+        mov si, faq
+        call print
+        ret
+
+.show:
+                mov si, f1data
+                call print
+                ret
+
+.list:
+                mov si, f1
+                call print
+                ret
 
 .vr:
         mov si, ver
@@ -201,14 +222,14 @@ print:
 msg db "MicroOS - Ultimate mini OS", 0x0D, 0x0A, 0
 prompt db "$ ", 0
 unknown db "unknown cmd", 0x0D, 0x0A, 0
-help_msg db "help, cls, reboot, count, ls, cat", 0x0D, 0x0A, 0
+help_msg db "help, cls, reboot, hltsys, count, ls, cat", 0x0D, 0x0A, 0
 eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
 tmsg db "counter started.", 0x0D, 0x0A, 0
 tdone db "1 tick passed (≈1 sec)", 0x0D, 0x0A, 0
-ver db "MicroOS 1.3 - Done with pain and love", 0x0D, 0x0A, 0
-unameo db "MicroOS 1.3 x86 (Little Worm), with MicroFS and MicroShell.", 0x0D, 0x0A, 0
-tfiln db "test.txt", 0x0D, 0x0A, 0
+ver db "MicroOS 1.4 - Done with pain and love", 0x0D, 0x0A, 0
+unameo db "MicroOS 1.4 x86 (Little Worm), with MicroFS 2.0 and MicroShell 6.0.", 0x0D, 0x0A, 0
 panhlt db "PANIC: User requested to halt the CPU.", 0x0D, 0x0A, 0
+faq db "MicroOS is NOT an complete OS. It is just an sort of OS. And there is a fake FS layer; that is NOT an real FS. It is just simulated FS.", 0x0D, 0x0A,0
 empt db "", 0x0D, 0x0A, 0
 
 ascii1 db "       _             ", 0x0D, 0x0A, 0
@@ -216,14 +237,19 @@ ascii2 db " _____|_|___ ___ ___ ", 0x0D, 0x0A, 0
 ascii3 db "|     | |  _|  _| . |", 0x0D, 0x0A, 0
 ascii4 db "|_|_|_|_|___|_| |___|", 0x0D, 0x0A, 0
 
+f1 db "hello.mtf", 0x0D,0x0A,0
+f1data db "Hello from MiFS.", 0x0D,0x0A,0
+
 help db "help", 0
 cls db "clear", 0
 reboot db "reboot", 0
 east db "easter egg", 0
 v db "kbinfo", 0
 timer db "count", 0
-list db "ls", 0
 un db "uname", 0
 hltsys db "hltsys", 0
+ls db "ls", 0
+cat db "cat hello.mtf", 0
+fc db "faq", 0
 
-buffer times 64 db 0
+buffer times 64 db

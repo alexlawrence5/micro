@@ -53,12 +53,6 @@ input:
 
 proc:
     mov si, buffer
-
-    mov di, help
-    call strcmp
-    jc .help
-
-    mov si, buffer
     mov di, cls
     call strcmp
     jc .cls
@@ -108,12 +102,12 @@ proc:
     call strcmp
     jc .fq
 
-    mov si, unknown
-    call print
-    ret
+    mov si, buffer
+    mov di, mm
+    call strcmp
+    jc memc
 
-.help:
-    mov si, help_msg
+    mov si, unknown
     call print
     ret
 
@@ -206,6 +200,33 @@ strcmp:
     clc
     ret
 
+memc:
+        mov ah, 0x12
+        int 0x12
+        call pnum
+        ret
+
+pnum:
+    mov cx, 0
+    mov bx, 10
+
+.convert:
+    xor dx, dx
+    div bx
+    push dx
+    inc cx
+    cmp ax, 0
+    jne .convert
+
+.print:
+    pop dx
+    add dl, '0'
+    mov ah, 0x0E
+    mov al, dl
+    int 0x10
+    loop .print
+    ret
+
 print:
 .loop:
     lodsb
@@ -222,14 +243,13 @@ print:
 msg db "MicroOS - Ultimate mini OS", 0x0D, 0x0A, 0
 prompt db "$ ", 0
 unknown db "unknown cmd", 0x0D, 0x0A, 0
-help_msg db "help, cls, reboot, hltsys, count, ls, cat, faq", 0x0D, 0x0A, 0
 eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
 tmsg db "counter started.", 0x0D, 0x0A, 0
 tdone db "1 tick passed (≈1 sec)", 0x0D, 0x0A, 0
-ver db "MicroOS 1.4 - Done with pain and love", 0x0D, 0x0A, 0
-unameo db "MicroOS 1.4 x86 (Little Worm), with MicroFS 2.0 and MicroShell 6.0.", 0x0D, 0x0A, 0
+ver db "MicroOS 1.5 - Done with pain and love", 0x0D, 0x0A, 0
+unameo db "MicroOS 1.5 x86 (Little Worm), with MicroFS 2.0 and MicroShell 6.0.", 0x0D, 0x0A, 0
 panhlt db "PANIC: User requested to halt the CPU.", 0x0D, 0x0A, 0
-faq db "MicroOS is NOT an complete OS. It is just an sort of OS. And there is a fake FS layer; that is NOT an real FS. It is just simulated FS.", 0x0D, 0x0A,0
+faq db "MicroOS is NOT an complete OS. It is just an sort of OS. And there is a fake FS layer; that is NOT an real FS. It is just simulated FS.", 0x0D, 0x0A, 0
 empt db "", 0x0D, 0x0A, 0
 
 ascii1 db "       _             ", 0x0D, 0x0A, 0
@@ -251,5 +271,6 @@ hltsys db "hltsys", 0
 ls db "ls", 0
 cat db "cat hello.mtf", 0
 fc db "faq", 0
+mm db "mem", 0
 
-buffer times 64 db
+buffer times 64 db 0

@@ -247,7 +247,7 @@ eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
 tmsg db "counter started.", 0x0D, 0x0A, 0
 tdone db "1 tick passed (≈1 sec)", 0x0D, 0x0A, 0
 ver db "MicroOS 1.5 - Done with pain and love", 0x0D, 0x0A, 0
-unameo db "MicroOS 1.5 x86 (Little Worm), with MicroFS 2.0 and MicroShell 6.0.", 0x0D, 0x0A, 0
+unameo db "MicroOS 1.5 x86 (Baby Jaguar), with MicroFS 2.0 and MicroShell 6.0.", 0x0D, 0x0A, 0
 panhlt db "PANIC: User requested to halt the CPU.", 0x0D, 0x0A, 0
 faq db "MicroOS is NOT an complete OS. It is just an sort of OS. And there is a fake FS layer; that is NOT an real FS. It is just simulated FS.", 0x0D, 0x0A, 0
 empt db "", 0x0D, 0x0A, 0

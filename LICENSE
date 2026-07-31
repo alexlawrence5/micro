@@ -1,0 +1,36 @@
+KIOS License v1.0
+
+This software is released under the KIOS License with the following terms and conditions:
+
+1. Source Code Availability
+
+All source code, including modified and derived versions, must remain open source at all times.
+No part of this software may be converted into closed-source or proprietary form.
+
+2. Attribution Requirement
+
+The original author(s) must be credited in all copies, forks, and derivative works.
+Attribution must be preserved in source code, documentation, and any user-facing information sections if applicable.
+
+3. Commercial Restriction
+
+This software may not be sold as a standalone product.
+It may be used freely for personal, educational, research, or internal purposes.
+
+4. Modification Rights
+
+Modification, extension, and integration into other projects is permitted.
+
+5. Derived Work Licensing
+
+Code written by contributors or modifiers may be licensed under a different license chosen by the contributor.
+However, original code and third-party components included in this project cannot have their license changed, removed, or overridden.
+
+6. License Separation
+
+Original code remains permanently under the KIOS License regardless of how it is modified or redistributed.
+Newly added code by others belongs to its respective author unless otherwise stated.
+
+7. Warranty Disclaimer
+
+This software is provided "as is", without any warranty of any kind, express or implied.

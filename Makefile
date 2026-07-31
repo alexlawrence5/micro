@@ -9,5 +9,14 @@ all:
 emulate:
 	$(EM) -fda vdmicro.img
 
+ngemulate:
+	$(EM) -fda vdmicro.img -nographic
+
+boot:
+	$(ASM) -f bin boot.s -o boot.bin
+
+userland:
+	$(ASM) -f bin userland.s -o usr.bin
+
 prop:
 	rm -rf *.o *.bin *.elf

@@ -12,10 +12,9 @@ call print
 mov si, empt
 call print
 
-
 loop:
     mov si, prompt
-    call print
+    call printc
 
     mov di, buffer
     call input
@@ -107,6 +106,26 @@ proc:
     call strcmp
     jc memc
 
+    mov si, buffer
+    mov di, gui
+    call strcmp
+    jc .g
+
+    mov si, buffer
+    mov di, hcmd
+    call strcmp
+    jc .rhell
+
+    mov si, buffer
+    mov di, acmd
+    call strcmp
+    jc .rabout
+
+    mov si, buffer
+    mov di, wcmd
+    call strcmp
+    jc .wexec
+
     mov si, unknown
     call print
     ret
@@ -137,6 +156,41 @@ proc:
 
 ; end of mpc
 
+; micro graphical screen service (mgss) commands
+.g:
+	mov ax, 0x0013
+	int 0x10
+	mov ax, 0xA000
+	mov es, ax
+	xor di, di
+	mov cx, 64000
+	mov al, 1
+
+.fill:
+	stosb
+	loop .fill
+
+.gwait:
+	mov ah, 0
+	int 0x16
+	mov ax, 0x0003
+	int 0x10
+	ret
+
+; end of mgss
+
+.rhell:
+	call hmain
+	ret
+
+.rabout:
+	call amain
+	ret
+
+.wexec:
+	call watchprop
+	ret
+
 .easteregg:
         mov si, eastermg
         call print
@@ -147,6 +201,8 @@ proc:
         call print
         ret
 
+; mfs (micro file system) commands
+
 .show:
                 mov si, f1data
                 call print
@@ -156,6 +212,8 @@ proc:
                 mov si, f1
                 call print
                 ret
+
+; end of mfs
 
 .vr:
         mov si, ver
@@ -227,6 +285,23 @@ pnum:
     loop .print
     ret
 
+printc:
+.loop:
+    lodsb
+    test al, al
+    jz .done
+    mov ah, 0x09
+    mov bh, 0
+    mov bl, 0x04
+    mov cx, 1
+    int 0x10
+    mov ah, 0x0E
+    int 0x10
+    jmp .loop
+
+.done:
+    ret
+
 print:
 .loop:
     lodsb
@@ -241,13 +316,13 @@ print:
     ret
 
 msg db "MicroOS - Ultimate mini OS", 0x0D, 0x0A, 0
-prompt db "$ ", 0
-unknown db "unknown cmd", 0x0D, 0x0A, 0
+prompt db "root@micro $ ", 0
+unknown db "Invalid command.", 0x0D, 0x0A, 0
 eastermg db "Woohoo! U founded it!", 0x0D, 0x0A, 0
 tmsg db "counter started.", 0x0D, 0x0A, 0
 tdone db "1 tick passed (≈1 sec)", 0x0D, 0x0A, 0
-ver db "MicroOS 1.5 - Done with pain and love", 0x0D, 0x0A, 0
-unameo db "MicroOS 1.5 x86 (Baby Jaguar), with MicroFS 2.0 and MicroShell 6.0.", 0x0D, 0x0A, 0
+ver db "MicroOS 1.6 - Done with pain and love", 0x0D, 0x0A, 0
+unameo db "MicroOS 1.6 x86 (Seashell Axolotl), with MicroFS 2.0 and MicroShell 7.0.", 0x0D, 0x0A, 0
 panhlt db "PANIC: User requested to halt the CPU.", 0x0D, 0x0A, 0
 faq db "MicroOS is NOT an complete OS. It is just an sort of OS. And there is a fake FS layer; that is NOT an real FS. It is just simulated FS.", 0x0D, 0x0A, 0
 empt db "", 0x0D, 0x0A, 0
@@ -272,5 +347,13 @@ ls db "ls", 0
 cat db "cat hello.mtf", 0
 fc db "faq", 0
 mm db "mem", 0
+gui db "mgss", 0
+hcmd db "hello", 0
+acmd db "about", 0
+wcmd db "wprop", 0
 
 buffer times 64 db 0
+
+%include "bin/tests.s"
+%include "bin/about.s"
+%include "bin/watchprop.s"

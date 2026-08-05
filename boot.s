@@ -53,3 +53,4 @@ err db "Unexpected behaviour: Disk error", 0x0D,0x0A,0
 err1 db "PANIC: MicroOS is unable to read disk. Does the userland work correctly?", 0x0D,0x0A,0
 
 times 510-($-$$) db 0
+dw 0xAA55

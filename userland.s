@@ -131,6 +131,11 @@ proc:
     call strcmp
     jc .wexec
 
+    mov si, buffer
+    mov di, fecmd
+    call strcmp
+    jc .feexec
+
     mov si, unknown
     call print
     ret
@@ -194,6 +199,10 @@ proc:
 
 .wexec:
         call watchprop
+        ret
+
+.feexec:
+        call fetch
         ret
 
 .easteregg:
@@ -340,7 +349,6 @@ ascii4 db "|_|_|_|_|___|_| |___|", 0x0D, 0x0A, 0
 f1 db "hello.mtf", 0x0D,0x0A,0
 f1data db "Hello from MiFS.", 0x0D,0x0A,0
 
-help db "help", 0
 cls db "clear", 0
 reboot db "reboot", 0
 east db "easter egg", 0
@@ -356,9 +364,11 @@ gui db "mgss", 0
 hcmd db "hello", 0
 acmd db "about", 0
 wcmd db "wprop", 0
+fecmd db "microfetch", 0
 
 buffer times 64 db 0
 
 %include "bin/tests.s"
 %include "bin/about.s"
 %include "bin/watchprop.s"
+%include "bin/microfetch.s"

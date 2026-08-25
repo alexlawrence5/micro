@@ -56,6 +56,8 @@ MicroOS asks a simpler question:
 
 > **Do we actually need a kernel?**
 
+And yes. Saying its not required is one of the purposes of this system.
+
 For a conventional multitasking, protected, hardware-independent operating system, a kernel is extremely useful.
 
 But MicroOS isn't trying to be conventional.

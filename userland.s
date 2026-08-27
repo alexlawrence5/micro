@@ -17,6 +17,11 @@ in al, 0x92
 or al, 2
 out 0x92, al
 
+; gdt gate
+cli
+lgdt [gdtdescr]
+sti
+
 loop:
     mov si, prompt
     call printc
@@ -372,3 +377,30 @@ buffer times 64 db 0
 %include "bin/about.s"
 %include "bin/watchprop.s"
 %include "bin/microfetch.s"
+
+gdtstart:
+
+gdtnull:
+        dq 0
+
+gdtcode:
+        dw 0xFFFF
+        dw 0x0000
+        db 0x00
+        db 10011010b
+        db 11001111b
+        db 0x00
+
+gdtdata:
+        dw 0xFFFF
+        dw 0x0000
+        db 0x00
+        db 10010010b
+        db 11001111b
+        db 0x00
+
+gdtend:
+
+gdtdescr:
+        dw gdtend - gdtstart - 1
+        dd gdtstart

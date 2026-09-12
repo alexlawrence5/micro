@@ -1,5 +1,8 @@
 # MicroOS
 
+## WARNING!
+This repository got discontinued. New link: https://github.com/alexlawrence5/micro.c
+
 > **An operating system built for optimization, minimalism, and learning.**
 
 MicroOS is a tiny **16-bit x86 operating system** designed around one simple idea:
